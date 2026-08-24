@@ -39,7 +39,8 @@ jobs:
       - name: Build Package with Dynamic Version
         run: |
           # Overwrites pyproject.toml version dynamically with the release tag
-          uv build --version ${{ steps.get_version.outputs.VERSION }}
+          uv version ${{ steps.get_version.outputs.VERSION }}
+          uv build 
 
       - name: Publish Package to PyPI
         run: |
