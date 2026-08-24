@@ -12,9 +12,12 @@ on:
   push:
     tags: 
       - "v[0-9]+.[0-9]+.[0-9]+"
+    branches:
+      - main
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   deploy:
@@ -35,7 +38,7 @@ jobs:
       run: |
         TAG="${GITHUB_REF#refs/tags/}"
         VERSION="${TAG#v}"
-        echo "version=$VERSION" >> "GITHUB_OUTPUT"
+        echo "version=$VERSION" >> "$GITHUB_OUTPUT"
     
     - name: Set version
       run: uv version "${{ steps.version.outputs.version }}"
